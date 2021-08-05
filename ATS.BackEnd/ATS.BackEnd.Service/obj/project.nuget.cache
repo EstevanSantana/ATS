@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "yMxgCoKtJc2HG5nRebvYo5PpA0JFjcWps5yGMs6VXESpAAxE6Wxj+XjEI2/eF3yLVVP+CaunfDs7rObtfCv21Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\e.santana\\estudos\\repos\\repos\\ATS\\ATS.BackEnd\\ATS.BackEnd.Service\\ATS.BackEnd.Service.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\e.santana\\.nuget\\packages\\fluentvalidation\\10.2.3\\fluentvalidation.10.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}

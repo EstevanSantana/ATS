@@ -1,0 +1,336 @@
+<div class="my-3 p-3 bg-white rounded shadow-lg">
+  <span class="fas fa-user-alt mb-2"></span>
+  <span class="mb-0"> Cadastro de Funcionario</span>
+  <hr>
+  <div class="media text-muted pt-3" style="margin-top: -25px;">
+      <a class="btn btn-sm btn-outline-secondary m-1" [routerLink]="['/home']">
+        <span class="fas fa-home"></span>
+         Home
+      </a>
+      <a class="btn btn-sm btn-outline-secondary" [routerLink]="['../candidatos-lista']">
+        <span class="fa fa-arrow-circle-left"></span>
+         Voltar
+      </a>
+      <form class="row mt-2 ms-2 me-2" (ngSubmit)="add()" [formGroup]="cadastroForm">
+          <div class="form-group col-md-5 mt-3">
+              <label for="nome">Nome:</label><label class="text-danger">*</label>
+              <input class="form-control" id="nome" type="text"
+                      placeholder="Nome (obrigatorio)" formControlName="nome"
+                          [ngClass]="{'is-invalid': cadastroForm.get('nome')?.errors
+                              && (cadastroForm.get('nome')?.touched
+                                  || cadastroForm.get('nome')?.dirty)}"
+                                  >
+              <span class="text-danger"
+                      *ngIf="cadastroForm.get('nome')?.hasError('required')
+                          && (cadastroForm.get('nome')?.touched
+                              || cadastroForm.get('nome')?.dirty)">
+                  Preencha o campo Nome!
+              </span>
+              <span class="text-danger" *ngIf="cadastroForm.get('nome')?.hasError('maxlength') || cadastroForm.get('nome')?.hasError('minlength')">
+                  Informe um Nome Valido!
+              </span>
+          </div>
+
+          <div class="form-group col-md-6 mt-3">
+              <label for="sobreNome">Sobrenome:</label><label class="text-danger">*</label>
+              <input class="form-control" id="nome" type="text"
+                      placeholder="Sobrenome (obrigatorio)" formControlName="sobreNome"
+                          [ngClass]="{'is-invalid': cadastroForm.get('sobreNome')?.errors
+                              && (cadastroForm.get('sobreNome')?.touched
+                                  || cadastroForm.get('sobreNome')?.dirty)}"
+                                  >
+              <span class="text-danger"
+                      *ngIf="cadastroForm.get('sobreNome')?.hasError('required')
+                          && (cadastroForm.get('sobreNome')?.touched
+                              || cadastroForm.get('sobreNome')?.dirty)"
+                              >
+                  Preencha o campo Sobrenome!
+              </span>
+              <span class="text-danger" *ngIf="(cadastroForm.get('sobreNome')?.hasError('maxlength') || cadastroForm.get('sobreNome')?.hasError('minlength'))">
+                  Informe um nome Valido!
+              </span>
+          </div>
+
+          <div class="form-group col-md-4 mt-3">
+              <label for="dataNascimento">Data de Nascimento:</label><label class="text-danger">*</label>
+              <input class="form-control" id="dataNascimento" data [textMask]="{mask: MASKS.data.textMask}"
+                          type="text" formControlName="dataNascimento" placeholder="Data de Nascimento (obrigatorio)"
+                              [ngClass]="{'is-invalid': cadastroForm.get('dataNascimento')?.errors
+                                  && (cadastroForm.get('dataNascimento')?.touched
+                                      || cadastroForm.get('dataNascimento')?.dirty )}"
+                                      >
+                  <span class="text-danger"
+                              *ngIf="(cadastroForm.get('dataNascimento')?.hasError('required')
+                                  && (cadastroForm.get('dataNascimento')?.touched
+                                      || cadastroForm.get('dataNascimento')?.dirty))"
+                                      >
+                      Preencha o campo Data de Nascimento!
+                  </span>
+          </div>
+
+          <div class="form-group col-md-3 mt-3">
+              <label for="cpf">CPF:</label><label class="text-danger">*</label>
+              <input class="form-control" id="cpf" type="text" cpf [textMask]="{mask: MASKS.cpf.textMask}"
+                      placeholder="CPF (obrigatorio)" formControlName="cpf"
+                          [ngClass]="{'is-invalid': cadastroForm.get('cpf')?.errors
+                              && (cadastroForm.get('cpf')?.touched
+                                  || cadastroForm.get('cpf')?.dirty )}"
+                                  >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('cpf')?.hasError('required')
+                              && (cadastroForm.get('cpf')?.touched
+                                  || cadastroForm.get('cpf')?.dirty))"
+                                  >
+                      Preencha o campo CPF!
+                  </span>
+          </div>
+
+          <div class="form-group col-md-4 mt-3">
+              <label for="telefone">Telefone:</label><label class="text-danger">*</label>
+              <input class="form-control" id="telefone" type="text"
+                          telefone #telefone [textMask]="{mask: MASKS.telefone.textMask}"
+                              placeholder="Telefone (obrigatorio)" formControlName="telefone"
+                                  [ngClass]="{'is-invalid': cadastroForm.get('telefone')?.errors
+                                      && (cadastroForm.get('telefone')?.touched
+                                      || cadastroForm.get('telefone')?.dirty )}"
+                                      >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('telefone')?.hasError('required')
+                              && (cadastroForm.get('telefone')?.touched
+                                  || cadastroForm.get('telefone')?.dirty))"
+                                  >
+                      Preencha o campo Telefone!
+                  </span>
+          </div>
+
+          <div class="row" formGroupName="endereco">
+              <h5 class="border-bottom border-gray text-dark pb-2 mt-4 mb-0"
+                      style="margin-left: -15px;">Endereço</h5>
+
+              <div class="form-group col-md-3 mt-3">
+                  <label for="rua">CEP:</label><label class="text-danger">*</label>
+                  <input class="form-control" id="rua" type="text"
+                              cep [textMask]="{mask: MASKS.cep.textMask}"
+                                  placeholder="CEP (obrigatorio)" formControlName="cep"
+                                      [ngClass]="{'is-invalid': cadastroForm.get('endereco.cep')?.errors
+                                          && (cadastroForm.get('endereco.cep')?.touched
+                                          || cadastroForm.get('endereco.cep')?.dirty )}"
+                                          >
+                      <span class="text-danger"
+                              *ngIf="(cadastroForm.get('endereco.cep')?.hasError('required')
+                                  && (cadastroForm.get('endereco.cep')?.touched
+                                      || cadastroForm.get('endereco.cep')?.dirty))"
+                                      >
+                          Preencha o campo CEP!
+                      </span>
+                      <span class="text-danger"
+                              *ngIf="(cadastroForm.get('endereco.cep')?.hasError('cep')
+                                  && (cadastroForm.get('endereco.cep')?.touched
+                                      || cadastroForm.get('endereco.cep')?.dirty))"
+                                      >
+                          Preencha um CEP valido!
+                      </span>
+              </div>
+
+              <div class="form-group col-md-5 mt-3">
+                  <label for="rua">Rua:</label><label class="text-danger">*</label>
+                  <input class="form-control" id="rua" type="text"
+                              placeholder="Rua (obrigatorio)" formControlName="rua"
+                                  [ngClass]="{'is-invalid': cadastroForm.get('endereco.rua')?.errors
+                                      && (cadastroForm.get('endereco.rua')?.touched
+                                      || cadastroForm.get('endereco.rua')?.dirty )}"
+                                      >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('endereco.rua')?.hasError('required')
+                              && (cadastroForm.get('endereco.rua')?.touched
+                                  || cadastroForm.get('endereco.rua')?.dirty))"
+                                  >
+                      Preencha o campo Rua!
+                  </span>
+              </div>
+
+              <div class="form-group col-md-3 mt-3">
+                  <label for="numero">Numero:</label><label class="text-danger">*</label>
+                  <input class="form-control" id="numero" type="text"
+                              number [textMask]="{mask: MASKS.number.textMask}"
+                                  placeholder="Numero (obrigatorio)" formControlName="numero"
+                                      [ngClass]="{'is-invalid': cadastroForm.get('endereco.numero')?.errors
+                                          && (cadastroForm.get('endereco.numero')?.touched
+                                          || cadastroForm.get('endereco.numero')?.dirty )}"
+                                          >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('endereco.numero')?.hasError('required')
+                              && (cadastroForm.get('endereco.numero')?.touched
+                                  || cadastroForm.get('endereco.numero')?.dirty))"
+                                  >
+                      Preencha o campo Numero!
+                  </span>
+              </div>
+
+              <div class="form-group col-md-4 mt-3">
+                  <label for="cidade">Bairro:</label><label class="text-danger">*</label>
+                  <input class="form-control" id="bairro" type="text"
+                                  placeholder="Bairro (obrigatorio)" formControlName="bairro"
+                                      [ngClass]="{'is-invalid': cadastroForm.get('endereco.bairro')?.errors
+                                          && (cadastroForm.get('endereco.bairro')?.touched
+                                          || cadastroForm.get('endereco.bairro')?.dirty )}"
+                                          >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('endereco.bairro')?.hasError('required')
+                              && (cadastroForm.get('endereco.bairro')?.touched
+                                  || cadastroForm.get('endereco.bairro')?.dirty))"
+                                  >
+                      Preencha o campo Bairro!
+                  </span>
+              </div>
+
+              <div class="form-group col-md-4 mt-3">
+                  <label for="cidade">Cidade:</label><label class="text-danger">*</label>
+                  <input class="form-control" id="cidade" type="text"
+                                  placeholder="Cidade (obrigatorio)" formControlName="cidade"
+                                      [ngClass]="{'is-invalid': cadastroForm.get('endereco.cidade')?.errors
+                                          && (cadastroForm.get('endereco.cidade')?.touched
+                                          || cadastroForm.get('endereco.cidade')?.dirty )}"
+                                          >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('endereco.cidade')?.hasError('required')
+                              && (cadastroForm.get('endereco.cidade')?.touched
+                                  || cadastroForm.get('endereco.cidade')?.dirty))"
+                                  >
+                      Preencha o campo Cidade!
+                  </span>
+              </div>
+
+              <div class="form-group col-md-3 mt-3">
+                  <label for="estado">Estado:</label><label class="text-danger">*</label>
+                  <select class="form-control" id="estado" name="estado"
+                              placeholder="Estado (obrigatorio)" formControlName="estado"
+                                  [ngClass]="{'is-invalid': cadastroForm.get('endereco.estado')?.errors
+                                      && (cadastroForm.get('endereco.estado')?.touched
+                                          || cadastroForm.get('endereco.estado')?.dirty )}"
+                                          >
+                      <option value="AC">Acre</option>
+                      <option value="AL">Alagoas</option>
+                      <option value="AP">Amapá</option>
+                      <option value="AM">Amazonas</option>
+                      <option value="BA">Bahia</option>
+                      <option value="CE">Ceará</option>
+                      <option value="DF">Distrito Federal</option>
+                      <option value="ES">Espírito Santo</option>
+                      <option value="GO">Goiás</option>
+                      <option value="MA">Maranhão</option>
+                      <option value="MT">Mato Grosso</option>
+                      <option value="MS">Mato Grosso do Sul</option>
+                      <option value="MG">Minas Gerais</option>
+                      <option value="PA">Pará</option>
+                      <option value="PB">Paraíba</option>
+                      <option value="PR">Paraná</option>
+                      <option value="PE">Pernambuco</option>
+                      <option value="PI">Piauí</option>
+                      <option value="RJ">Rio de Janeiro</option>
+                      <option value="RN">Rio Grande do Norte</option>
+                      <option value="RS">Rio Grande do Sul</option>
+                      <option value="RO">Rondônia</option>
+                      <option value="RR">Roraima</option>
+                      <option value="SC">Santa Catarina</option>
+                      <option value="SP">São Paulo</option>
+                      <option value="SE">Sergipe</option>
+                      <option value="TO">Tocantins</option>
+                  </select>
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('endereco.estado')?.hasError('required')
+                              && (cadastroForm.get('endereco.estado')?.touched
+                                  || cadastroForm.get('endereco.estado')?.dirty))"
+                                  >
+                      Preencha o campo Estado!
+                  </span>
+              </div>
+          </div>
+
+          <div class="row" formGroupName="curriculo">
+              <h5 class="border-bottom border-gray text-dark pb-2 mt-4 mb-0"
+                      style="margin-left: -15px;">Curriculo</h5>
+
+              <div class="form-group col-md-4 mt-3">
+                  <label for="faculdade">Faculdade:</label><label class="text-danger">*</label>
+                  <input class="form-control" id="faculdade" type="text"
+                              placeholder="Faculdade (obrigatorio)" formControlName="faculdade"
+                                  [ngClass]="{'is-invalid': cadastroForm.get('curriculo.faculdade')?.errors
+                                      && (cadastroForm.get('curriculo.faculdade')?.touched
+                                      || cadastroForm.get('curriculo.faculdade')?.dirty )}"
+                                      >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('curriculo.faculdade')?.hasError('required')
+                              && (cadastroForm.get('curriculo.faculdade')?.touched
+                                  || cadastroForm.get('curriculo.faculdade')?.dirty))"
+                                  >
+                      Preencha o campo Faculdade!
+                  </span>
+              </div>
+
+              <div class="form-group col-md-4 mt-3">
+                  <label for="curso">Curso:</label><label class="text-danger">*</label>
+                  <input class="form-control" id="curso" type="text"
+                              placeholder="Curso (obrigatorio)" formControlName="curso"
+                                  [ngClass]="{'is-invalid': cadastroForm.get('curriculo.curso')?.errors
+                                      && (cadastroForm.get('curriculo.curso')?.touched
+                                      || cadastroForm.get('curriculo.curso')?.dirty )}"
+                                      >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('curriculo.curso')?.hasError('required')
+                              && (cadastroForm.get('curriculo.curso')?.touched
+                                  || cadastroForm.get('curriculo.curso')?.dirty))"
+                                  >
+                      Preencha o campo Curso!
+                  </span>
+              </div>
+              <div class="form-group col-md-3 mt-3">
+                  <label for="conclusao">Anos de Conclusao:</label><label class="text-danger">*</label>
+                  <input class="form-control" id="conclusao" type="text"
+                          data [textMask]="{mask: MASKS.data.textMask}"
+                              placeholder="Conclusao (obrigatorio)" formControlName="conclusao"
+                                  [ngClass]="{'is-invalid': cadastroForm.get('curriculo.conclusao')?.errors
+                                      && (cadastroForm.get('curriculo.conclusao')?.touched
+                                      || cadastroForm.get('curriculo.conclusao')?.dirty )}"
+                                      >
+                  <span class="text-danger"
+                          *ngIf="(cadastroForm.get('curriculo.conclusao')?.hasError('required')
+                              && (cadastroForm.get('curriculo.conclusao')?.touched
+                                  || cadastroForm.get('curriculo.conclusao')?.dirty))"
+                                  >
+                      Preencha o campo Ano de Conclusao!
+                  </span>
+              </div>
+
+              <div class="form-group col-md-8 mt-lg-3">
+                  <label for="img">Imagem do Produto:</label>
+                  <div class="custom-file">
+                      <input type="file" accept="image/jpeg,image/png"
+                              class="form-control" id="imagemUpload"
+                              formControlName="imagemUpload" #fileInput (change)="upload(fileInput.files)"
+                              >
+                      <label data-browse="Procurar" class="custom-file-label"></label>
+                      <br>
+                      <span class="text-danger"
+                              *ngIf="(cadastroForm.get('curriculo.imagemUpload')?.hasError('required')
+                                  && (cadastroForm.get('curriculo.imagemUpload')?.touched
+                                      || cadastroForm.get('curriculo.imagemUpload')?.dirty))"
+                                      >
+                          Preencha o campo Imagem!
+                      </span>
+                  </div>
+                  <div *ngIf="imagemPreview" class="form-group">
+                      <img class="m-1" [src]="imagemPreview" style="width: 140px; height: 200px" />
+                      <div class="alert alert-primary col-sm-5 m-1" role="alert">
+                        <strong>Info:</strong> Imagem de pré visualização!
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <small class="d-block border-top text-right mt-5">
+              <button type="submit" class="btn btn-sm btn-outline-success mr-2" [disabled]="!cadastroForm.valid">Concluir</button>
+              <a class="m-2 mt-2 btn btn-sm btn-outline-danger" [routerLink]="['../candidatos-lista']">Cancelar</a>
+          </small>
+      </form>
+  </div>
+</div>
